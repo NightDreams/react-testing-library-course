@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Login } from './containers/Login';
-import { Orders } from './containers/Orders';
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { Login } from './containers/Login'
+import { Orders } from './containers/Orders'
 
 const App: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Login />} />
       <Route path="/orders" element={<Orders />} />
     </Routes>
-  );
-};
+  )
+}
 
-export default App;
+export default App
