@@ -1,5 +1,3 @@
-import { describe, it, expect } from 'vitest'
-
 describe('fisr', () => {
   it('sum 2 numbers', () => {
     const suma = (a: number, b: number) => a + b
