@@ -1,4 +1,4 @@
-describe('fisr', () => {
+describe('Mi primer test', () => {
   it('sum 2 numbers', () => {
     const suma = (a: number, b: number) => a + b
     const resultado = suma(2, 3)
