@@ -1,0 +1,44 @@
+# Archivos de dependencias / builds
+node_modules
+dist
+build
+coverage
+
+# Archivos de lock y de control
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Configuración y runtime
+.env
+.env.*.local
+*.log
+
+# Archivos que ya están formateados por herramientas específicas
+*.min.js
+*.min.css
+*.snap
+*.svg
+
+# Archivos de output
+*.tsbuildinfo
+
+# Bases de datos o mocks pesados
+*.sqlite
+*.csv
+*.jsonl
+
+# Configuración de plataformas externas
+.next
+.vite
+.vercel
+out
+
+# Archivos que no quieras tocar (por ejemplo, migraciones generadas)
+prisma/migrations/*
+
+# test
+playground/
+datasets/
+__mocks__/
+mock-data/
