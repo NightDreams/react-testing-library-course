@@ -15,6 +15,7 @@ export default defineConfig([
   // Base JS + TS
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  prettier,
 
   // React
   {
