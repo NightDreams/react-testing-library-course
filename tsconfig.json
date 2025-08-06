@@ -13,13 +13,7 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx", // o "react" si usas React <17
-    "lib": [
-      "DOM",
-      "ESNext"
-    ], // ⚠️ importante: incluye DOM
-    "types": [
-      "vitest/globals",
-      "vite/client"
-    ]
+    "lib": ["DOM", "ESNext"], // ⚠️ importante: incluye DOM
+    "types": ["vitest/globals", "vite/client"]
   }
 }

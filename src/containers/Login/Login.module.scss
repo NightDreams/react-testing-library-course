@@ -1,4 +1,4 @@
-@import "../../styles/_variables.scss";
+@import '../../styles/_variables.scss';
 
 .Login {
   display: flex;
@@ -6,11 +6,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    rgba($primary-color, 0.1),
-    rgba($secondary-color, 0.1)
-  );
+  background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba($secondary-color, 0.1));
   padding: 1rem;
   box-sizing: border-box;
 

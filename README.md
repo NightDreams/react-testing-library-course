@@ -26,27 +26,22 @@ Through this project, students will gain hands-on experience in writing effectiv
 ## User accounts
 
 1. **superadmin**
-
    - Email: superadmin@example.com
    - Password: superadmin123!
 
 2. **visualizer1**
-
    - Email: visualizer1@example.com
    - Password: vis1pass456@
 
 3. **visualizer2**
-
    - Email: visualizer2@example.com
    - Password: vis2pass789#
 
 4. **visualizer3**
-
    - Email: visualizer3@example.com
    - Password: vis3pass101$
 
 5. **visualizer4**
-
    - Email: visualizer4@example.com
    - Password: vis4pass202%
 

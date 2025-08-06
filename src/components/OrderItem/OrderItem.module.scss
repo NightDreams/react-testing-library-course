@@ -1,11 +1,13 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .OrderItem {
   background-color: $bg-card;
   border-radius: 8px;
   box-shadow: $card-shadow;
   overflow: hidden;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   border: 1px solid $gray;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
