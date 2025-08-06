@@ -21,6 +21,7 @@ export default defineConfig([
     files: ['**/*.{ts,tsx,js,jsx}'],
     plugins: {
       react: pluginReact,
+      prettier,
     },
     languageOptions: {
       parserOptions: {
@@ -45,6 +46,7 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
+      'prettier/prettier': 'warn', // 👈 asegúrate de que esté aquí
     },
   },
 
