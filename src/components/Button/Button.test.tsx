@@ -1,10 +1,11 @@
+import { describe, it, expect, vi } from 'vitest'
 import { render, fireEvent, screen } from '@testing-library/react'
 import { Button } from './Button'
 
 describe('Button', () => {
   it('renders with the correct label', () => {
-    render(<Button label="click me "></Button>)
-    const button = screen.getByText('click me ')
+    render(<Button label="click me"></Button>)
+    const button = screen.getByText('click me')
     expect(button).toBeInTheDocument()
   })
 
