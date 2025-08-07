@@ -11,6 +11,8 @@
     "build": "vite build",
     "lint": "eslint src/ --cache",
     "lint:fix": "eslint src/ --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
     "format": "prettier . --write",
     "preview": "vite preview",
     "test": "vitest",
