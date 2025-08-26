@@ -20,14 +20,16 @@ const mockNavigate = vi.fn()
 const mockGetAuth = getAuth as Mock
 
 describe('login', async () => {
-  const handleLogin = () => {
-    return render(
-      <SessionProvider>
-        <MemoryRouter>
-          <Login />
-        </MemoryRouter>
-      </SessionProvider>
-    )
+  const handleLogin = async () => {
+    await act(() => {
+      render(
+        <SessionProvider>
+          <MemoryRouter>
+            <Login />
+          </MemoryRouter>
+        </SessionProvider>
+      )
+    })
   }
   it('login error ', async () => {
     mockGetAuth.mockRejectedValue(new Error('Invalid credentials'))
@@ -39,7 +41,7 @@ describe('login', async () => {
     const buttonLogin = screen.getByRole('button', { name: 'Login' })
 
     // fire events to simulate user interaction
-    await act(() => {
+    await act(async () => {
       fireEvent.change(usernameInput, { target: { value: 'wrongUser' } })
       fireEvent.change(passwordInput, { target: { value: 'wrongPassword' } })
       fireEvent.click(buttonLogin)
