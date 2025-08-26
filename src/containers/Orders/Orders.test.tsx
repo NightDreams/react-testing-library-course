@@ -7,6 +7,7 @@ import { getOrders } from '../../services/getOrders'
 import { MemoryRouter } from 'react-router-dom'
 import { render, screen, waitFor } from '@testing-library/react'
 import { Mock } from 'vitest'
+import { getSummaryOrders } from '../../utils/sumamry'
 
 vi.mock('../../services/getOrders', () => ({
   getOrders: vi.fn(),
@@ -58,6 +59,7 @@ const mockOrders = [
 ]
 
 describe('<Orders/>', () => {
+  // montar componente
   const handleRenderORders = (userRole: string) => {
     const mockUser = userRole ? { role: userRole } : null
     ;(useSession as Mock).mockReturnValue({ user: mockUser })
@@ -77,6 +79,15 @@ describe('<Orders/>', () => {
     await waitFor(() => {
       const orders = screen.getAllByRole('heading', { level: 3 })
       expect(orders).toHaveLength(mockOrders.length)
+    })
+  })
+  it('should render section for superadmin', async () => {
+    handleRenderORders('superadmin')
+
+    await waitFor(() => {
+      const { totalOrders } = getSummaryOrders(mockOrders)
+      const totalOrderElement = screen.getByTestId('totalOrders').textContent
+      expect(totalOrderElement).toBe(totalOrders.toString())
     })
   })
 })
