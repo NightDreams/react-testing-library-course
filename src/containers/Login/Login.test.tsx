@@ -1,9 +1,10 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import { Login } from './Login'
 import { MemoryRouter } from 'react-router-dom'
 import { SessionProvider } from '../../context/AuthContext'
 import { getAuth } from '../../services/getAuth'
 import { Mock } from 'vitest'
+import userEvent from '@testing-library/user-event'
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom')
@@ -21,7 +22,8 @@ const mockGetAuth = getAuth as Mock
 
 describe('login', async () => {
   const handleLogin = async () => {
-    await act(() => {
+    // render dentro de act async para manejar updates async del provider
+    await act(async () => {
       render(
         <SessionProvider>
           <MemoryRouter>
@@ -31,38 +33,42 @@ describe('login', async () => {
       )
     })
   }
-  it('login error ', async () => {
+  it('login error', async () => {
     mockGetAuth.mockRejectedValue(new Error('Invalid credentials'))
 
-    handleLogin()
-    // prepara ui elements for interaction
+    await handleLogin()
+
     const usernameInput = screen.getByPlaceholderText('Username')
     const passwordInput = screen.getByPlaceholderText('Password')
     const buttonLogin = screen.getByRole('button', { name: 'Login' })
 
-    // fire events to simulate user interaction
-    await act(async () => {
-      fireEvent.change(usernameInput, { target: { value: 'wrongUser' } })
-      fireEvent.change(passwordInput, { target: { value: 'wrongPassword' } })
-      fireEvent.click(buttonLogin)
-    })
-    // expects
+    // limpia los inputs antes de escribir
+    await userEvent.clear(usernameInput)
+    await userEvent.type(usernameInput, 'wrongUser')
+    await userEvent.clear(passwordInput)
+    await userEvent.type(passwordInput, 'wrongPassword')
+    await userEvent.click(buttonLogin)
+
+    // espera el mensaje de error
     const errorMessage = screen.getByText('Invalid credentials')
     expect(errorMessage).toBeInTheDocument()
   })
 
-  it('deberia redirigir a /orders', async () => {
+  it('debería redirigir a /orders', async () => {
     mockGetAuth.mockResolvedValue({ success: true })
-    handleLogin()
+
+    await handleLogin()
 
     const usernameInput = screen.getByPlaceholderText('Username')
     const passwordInput = screen.getByPlaceholderText('Password')
     const buttonLogin = screen.getByRole('button', { name: 'Login' })
-    await act(() => {
-      fireEvent.change(usernameInput, { target: { value: 'validUser' } })
-      fireEvent.change(passwordInput, { target: { value: 'validPassword' } })
-      fireEvent.click(buttonLogin)
-    })
+
+    await userEvent.clear(usernameInput)
+    await userEvent.type(usernameInput, 'validUser')
+    await userEvent.clear(passwordInput)
+    await userEvent.type(passwordInput, 'validPassword')
+    await userEvent.click(buttonLogin)
+
     await waitFor(() => {
       expect(mockGetAuth).toHaveBeenCalledWith('validUser', 'validPassword')
       expect(mockNavigate).toHaveBeenCalledWith('/orders')
