@@ -72,4 +72,15 @@ describe('useOrders', async () => {
       expect(result.current.orders).toEqual(mockOrders)
     })
   })
+  it('should render error ', async () => {
+    mockGetGetOrders.mockRejectedValue(new Error('API Error'))
+    const { result } = renderHook(() => useOrders())
+    expect(result.current.loading).toBe(true)
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false)
+      expect(result.current.orders).toStrictEqual([])
+      expect(result.current.error).toBe('Failed to fetch orders. Please try again later.')
+    })
+  })
 })
