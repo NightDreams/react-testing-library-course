@@ -1,6 +1,10 @@
+// external deps
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
+import { http, HttpResponse } from 'msw'
+import { server } from '../mocks/server'
 import { renderHook, waitFor } from '@testing-library/react'
+//internal deps
 import { useOrders } from './useOrders'
 import { SessionProvider, useSession } from '../context/AuthContext'
 
@@ -25,6 +29,16 @@ describe('useOrders MSW', () => {
     </SessionProvider>
   )
 
+  function runServerError() {
+    server.use(
+      http.get('http://localhost:3001/orders', () => {
+        return new HttpResponse(null, {
+          status: 500,
+          statusText: 'Internal Server Error',
+        })
+      })
+    )
+  }
   it('debe obtener good la data', async () => {
     const { result } = renderHook(() => useOrders(), { wrapper })
     const initialLoading = result.current.loading
@@ -35,6 +49,17 @@ describe('useOrders MSW', () => {
     await waitFor(() => {
       const lengthOrders = result.current.orders.length
       expect(lengthOrders).toBe(1)
+    })
+  })
+  it('debe obtener un error', async () => {
+    runServerError()
+    const { result } = renderHook(() => useOrders(), {
+      wrapper,
+    })
+
+    await waitFor(() => {
+      const error = result.current.error
+      expect(error).toBe('Failed to fetch orders. Please try again later.')
     })
   })
 })
